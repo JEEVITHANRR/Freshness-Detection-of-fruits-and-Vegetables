@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="header">
+  <a href="{{ url_for('upload') }}" class="btn"
+    style="background: transparent; padding-left: 0; color: var(--text-color);"><i class="fas fa-arrow-left"></i> Back
+    to Upload</a>
+  <h1>Analysis Result</h1>
+</div>
+
+<div style="display: flex; gap: 30px; flex-wrap: wrap;">
+  <!-- Image Section -->
+  <div style="flex: 1; min-width: 400px;">
+    <div class="card">
+      <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Analyzed Image"
+        style="width: 100%; border-radius: 8px;">
+    </div>
+  </div>
+
+  <!-- Details Section -->
+  <div style="flex: 1; min-width: 400px;">
+
+    <!-- Freshness Overview -->
+    <div class="card" style="margin-bottom: 20px;">
+      <h4>Freshness Overview</h4>
+      <div style="display: flex; gap: 15px;">
+        {% for status, count in freshness_stats.items() %}
+        <div style="text-align: center; min-width: 80px; padding: 10px; border-radius: 8px; background: #f8f9fa;">
+          <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary-color);">{{ count }}</div>
+          <div style="font-size: 0.9rem; color: #666;">{{ status }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Summary Counts -->
+    <div class="card" style="margin-bottom: 20px;">
+      <h4>Detected Items Breakdown</h4>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        {% for name, breakdown in item_freshness_breakdown.items() %}
+        <div style="background: #fdfdfd; padding: 10px; border-radius: 8px; border: 1px solid #eee;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <strong>{{ name|title }}</strong>
+            <span style="font-weight: bold; color: #333;">Total: {{ counts[name] }}</span>
+          </div>
+          <div style="display: flex; gap: 10px; font-size: 0.85rem;">
+            {% for status, qty in breakdown.items() %}
+            <span style="background: #ecf0f1; padding: 2px 8px; border-radius: 4px;">{{ status }}: {{ qty }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Detailed List -->
+    <div class="card">
+      <h4>Detailed Analysis</h4>
+      <table class="data-table" style="box-shadow: none;">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Shelf Life</th>
+            <th>Conf.</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in details %}
+          <tr>
+            <td>
+              <strong>{{ item.name|title }}</strong><br>
+              <small style="color: #bbb;">{{ item.category }}</small>
+            </td>
+            <td>
+              {% if 'Fresh' in item.freshness %}
+              <span style="color: var(--secondary-color);"><i class="fas fa-check"></i> Fresh</span>
+              {% elif item.freshness == 'N/A' %}
+              <span style="color: #95a5a6;">--</span>
+              {% else %}
+              <span style="color: var(--accent-color);">{{ item.freshness }}</span>
+              {% endif %}
+
+              {% if item.observations %}
+              <div style="font-size: 0.8em; color: gray; margin-top: 4px;">
+                <i class="fas fa-search"></i> {{ item.observations }}
+              </div>
+              {% endif %}
+            </td>
+            <td>
+              {% if item.shelf_life.days_left > 0 %}
+              {{ item.shelf_life.days_left }} Days<br>
+              <small>Until {{ item.shelf_life.expiry_date }}</small>
+              {% else %}
+              Expired
+              {% endif %}
+            </td>
+            <td>{{ "%.1f"|format(item.confidence) }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

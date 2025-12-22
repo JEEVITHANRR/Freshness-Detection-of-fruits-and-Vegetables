@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+  <h1>Detect Freshness</h1>
+  <p>Upload an image to identify products, count items, and estimate shelf life.</p>
+
+  <div class="card" style="margin-top: 20px;">
+    <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadForm">
+      <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #cbd5e0; margin-bottom: 20px;"></i>
+        <h3>Click or Drag & Drop Image Here</h3>
+        <p style="color: var(--text-muted);">Supports JPG, PNG (Max 5MB)</p>
+        <input type="file" name="image" id="fileInput" style="display: none;" accept="image/*"
+          onchange="document.getElementById('uploadForm').submit()">
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const dropZone = document.getElementById('dropZone');
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = 'var(--secondary-color)';
+    dropZone.style.background = '#f0fff4';
+  });
+
+  dropZone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dropZone.style.borderColor = '#cbd5e0';
+    dropZone.style.background = 'white';
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      document.getElementById('fileInput').files = files;
+      document.getElementById('uploadForm').submit();
+    }
+  });
+</script>
+{% endblock %}

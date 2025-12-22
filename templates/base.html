@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshAI | Food Freshness Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    {% if session.get('user_id') %}
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2><i class="fas fa-leaf"></i> FreshAI</h2>
+            </div>
+            <nav>
+                <a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' else '' }}">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="{{ url_for('upload') }}" class="{{ 'active' if request.endpoint == 'upload' else '' }}">
+                    <i class="fas fa-upload"></i> Detect & Analyze
+                </a>
+                <!-- Future links -->
+                <a href="{{ url_for('history') }}" class="{{ 'active' if request.endpoint == 'history' else '' }}">
+                    <i class="fas fa-history"></i> History
+                </a>
+                <a href="{{ url_for('settings') }}" class="{{ 'active' if request.endpoint == 'settings' else '' }}">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+
+                <a href="{{ url_for('logout') }}" style="margin-top: auto; color: #e74c3c;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+            <div class="user-info" style="margin-top: 20px; font-size: 0.8rem; color: #95a5a6;">
+                Logged in as<br>
+                <strong>{{ session.get('name', 'User') }}</strong><br>
+                <span class="badge">{{ session.get('role', 'Viewer') }}</span>
+            </div>
+        </aside>
+
+        <main class="main-content fade-in">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alerts">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}"
+                    style="padding: 10px; background: #ffeaa7; margin-bottom: 10px; border-radius: 5px;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% else %}
+    <!-- Layout for Login/Signup (No sidebar) -->
+    <main class="fade-in">
+        {% block auth_content %}{% endblock %}
+    </main>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
