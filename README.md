@@ -1,3 +1,13 @@
+<img width="1388" height="753" alt="Screenshot 2026-04-25 at 3 55 38 PM" src="https://github.com/user-attachments/assets/48a1ec81-adc4-47ec-9ab4-9102435b67f4" />
+<img width="1386" height="758" alt="Screenshot 2026-04-25 at 3 53 48 PM" src="https://github.com/user-attachments/assets/00522511-37f8-49d5-b29a-3480b594bb09" />
+<img width="1387" height="757" alt="Screenshot 2026-04-25 at 3 53 32 PM" src="https://github.com/user-attachments/assets/eed894c9-6d25-40b7-b896-bfe4daf1bdb7" />
+<img width="1385" height="756" alt="Screenshot 2026-04-25 at 3 53 06 PM" src="https://github.com/user-attachments/assets/44eb5c50-f1a0-4d3d-b0e5-5488ce0d750c" />
+<img width="1386" height="753" alt="Screenshot 2026-04-25 at 3 52 27 PM" src="https://github.com/user-attachments/assets/5588097d-787b-45f1-b165-352a77220573" />
+<img width="1384" height="750" alt="Screenshot 2026-04-25 at 3 51 57 PM" src="https://github.com/user-attachments/assets/ddb5236a-1daf-4e13-9f0a-f09010914b43" />
+<img width="1386" height="756" alt="Screenshot 2026-04-25 at 3 51 09 PM" src="https://github.com/user-attachments/assets/c1ba8216-bf05-4d00-8bc6-8a8f0483a572" />
+<img width="1387" height="755" alt="Screenshot 2026-04-25 at 3 50 48 PM" src="https://github.com/user-attachments/assets/6b513edc-66fd-4752-8c37-ca0fe9f2f912" />
+<img width="1381" height="755" alt="Screenshot 2026-04-25 at 3 50 26 PM" src="https://github.com/user-attachments/assets/c039178a-1e60-41cf-a221-94cc10c98485" />
+
 <h1 align="center">
   🍎 Food Freshness AI
 </h1>
